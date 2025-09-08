@@ -1,0 +1,17 @@
+# initialize git
+git init
+
+# stage everything
+git add .
+
+# commit it
+git commit -m "Initial frontend commit"
+
+# set branch to main
+git branch -M main
+
+# connect your GitHub repo (replace with your repo URL)
+git remote add origin https://github.com/<your-username>/<repo-name>.git
+
+# push everything
+git push -u origin main

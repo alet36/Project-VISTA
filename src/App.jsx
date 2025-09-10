@@ -1,10 +1,11 @@
-import React from "react"; // 👈 add this line
+import React from "react";
 
 export default function App() {
-  console.log("✅ App.jsx is rendering");
   return (
-    <div className="bg-black text-green-400 min-h-screen flex items-center justify-center text-6xl">
-      HACKED BY CHEF 🧑‍🍳
+    <div className="flex min-h-screen items-center justify-center bg-gray-900">
+      <h1 className="text-5xl font-bold text-white">
+        🚀 Tailwind + React + Vite is working!
+      </h1>
     </div>
   );
 }

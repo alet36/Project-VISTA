@@ -7,6 +7,8 @@ import Home from "./pages/Home";
 import CNNs from "./pages/CNNs";
 import Vision from "./pages/Vision";
 import Demos from "./pages/Demos";
+import OCR from "./pages/OCR";
+import Prediction from "./pages/Prediction";
 import IB from "./pages/IB";
 import About from "./pages/About";
 

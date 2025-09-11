@@ -1,5 +1,5 @@
 // pages/Vision.jsx
-import React from "react";
+import React, { useState } from "react";
 
 export default function Vision() {
   const [activeSection, setActiveSection] = useState("intro");
@@ -13,11 +13,28 @@ export default function Vision() {
   const renderSection = () => {
     switch (activeSection) {
       case "intro":
-        return <p>Intro to machine vision and CNNs goes here.</p>;
+        return (
+          <p>
+            Computer vision with CNNs allows systems to process and interpret 
+            images. Tasks like classification, detection, and recognition are 
+            core applications of machine vision.
+          </p>
+        );
       case "steps":
-        return <p>Breakdown of the model pipeline and implementation steps.</p>;
+        return (
+          <ol className="list-decimal list-inside space-y-2">
+            <li>Collect and label a dataset of images.</li>
+            <li>Preprocess images (resize, normalize, augment).</li>
+            <li>Train CNN models for classification or detection.</li>
+            <li>Deploy the model to make predictions on new images.</li>
+          </ol>
+        );
       case "demo":
-        return <div>[Interactive Vision Demo Placeholder]</div>;
+        return (
+          <div className="p-6 bg-gray-200 dark:bg-gray-700 rounded-2xl">
+            [Vision demo placeholder — e.g., object detection live demo]
+          </div>
+        );
       default:
         return null;
     }

@@ -1,5 +1,5 @@
 // pages/Vision.jsx
-import { useState } from "react";
+import React from "react";
 
 export default function Vision() {
   const [activeSection, setActiveSection] = useState("intro");

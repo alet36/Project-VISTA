@@ -25,9 +25,12 @@ export default function App() {
           <Link to="/">Home</Link>
           <Link to="/cnns">CNNs</Link>
           <Link to="/vision">Vision</Link>
+          <Link to="/ocr">OCR</Link>
+          <Link to="/prediction">Prediction</Link>
           <Link to="/demos">Demos</Link>
           <Link to="/ib">IB</Link>
           <Link to="/about">About</Link>
+
         </nav>
         <button onClick={() => setDark(!dark)}>
           {dark ? <Sun className="w-5 h-5 text-yellow-400" /> : <Moon className="w-5 h-5 text-cyan-500" />}
@@ -40,6 +43,8 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/cnns" element={<CNNs />} />
           <Route path="/vision" element={<Vision />} />
+          <Route path="/ocr" element={<OCR />} />
+          <Route path="/prediction" element={<Prediction />} />
           <Route path="/demos" element={<Demos />} />
           <Route path="/ib" element={<IB />} />
           <Route path="/about" element={<About />} />

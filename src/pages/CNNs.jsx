@@ -32,7 +32,7 @@ export default function CNNs() {
         );
       case "demo":
         return (
-          <div className="p-6 bg-gray-200 dark:bg-gray-700 rounded-2xl">
+          <div className="p-6 bg-white dark:bg-gray-700 rounded-2xl">
             [CNNs demo placeholder — e.g., simple image classification]
           </div>
         );

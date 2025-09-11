@@ -70,7 +70,15 @@ export default function CNNs() {
       
         <div className="prose prose-gray dark:prose-invert max-w-none">
           <div className="text-gray-800 dark:text-gray-200">
-            {renderSection()}
+            {renderSection(
+      case "demo":
+  return (
+    <div className="p-6 bg-gray-200 dark:bg-gray-700 rounded-2xl text-gray-800 dark:text-gray-200">
+      [CNNs demo placeholder — e.g., simple image classification]
+    </div>
+  );
+
+            )}
           </div>
         </div>
       </section>

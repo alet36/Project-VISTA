@@ -67,7 +67,7 @@ export default function Home() {
 
       {/* Features Section */}
       <section className="px-10 py-20 bg-gray-50 dark:bg-gray-800">
-        <h2 className="text-3xl font-extrabold text-center mb-12 text-gray-0 dark:text-gray-400">
+        <h2 className="text-3xl font-extrabold text-center mb-12 text-white-0 dark:text-white-0">
         Core Features
         </h2>
 
@@ -81,7 +81,7 @@ export default function Home() {
               className="p-6 rounded-2xl shadow-md bg-white dark:bg-gray-900 hover:shadow-lg hover:scale-105 transition"
             >
               <div className="mb-4">{f.icon}</div>
-              <h3 className="font-semibold text-lg text-gray-0 dark:text-gray-400">{f.title}</h3>
+              <h3 className="font-semibold text-lg text-white-0 dark:text-white-0">{f.title}</h3>
               <p className="text-sm text-gray-0 dark:text-gray-400">{f.description}</p>
 
             </motion.div>

@@ -67,7 +67,10 @@ export default function Home() {
 
       {/* Features Section */}
       <section className="px-10 py-20 bg-gray-50 dark:bg-gray-800">
-        <h2 className="text-3xl font-bold text-center mb-12">Core Features</h2>
+        <h2 className="text-3xl font-extrabold text-center mb-12">
+  Core Features
+</h2>
+
         <div className="grid md:grid-cols-4 gap-8">
           {features.map((f, i) => (
             <motion.div
@@ -79,7 +82,10 @@ export default function Home() {
             >
               <div className="mb-4">{f.icon}</div>
               <h3 className="font-semibold text-lg">{f.title}</h3>
-              <p className="text-sm text-gray-0 dark:text-gray-400">{f.description}</p>
+              <p className="text-sm">
+  {f.description}
+</p>
+
             </motion.div>
           ))}
         </div>

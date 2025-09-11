@@ -1,163 +1,101 @@
-import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Sun, Moon, Eye, Hand, Type, Cpu } from "lucide-react";
+import { useState } from "react";
 
-// Ripple button component
-const RippleButton = ({ children, className }) => {
-  const [ripples, setRipples] = useState([]);
-
-  const createRipple = (e) => {
-    const rect = e.target.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const newRipple = { x, y, id: Date.now() };
-
-    setRipples((prev) => [...prev, newRipple]);
-    setTimeout(() => {
-      setRipples((prev) => prev.filter((r) => r.id !== newRipple.id));
-    }, 600);
-  };
-
-  return (
-    <button
-      onClick={createRipple}
-      className={`relative overflow-hidden ${className}`}
-    >
-      {children}
-      {ripples.map((r) => (
-        <span
-          key={r.id}
-          className="absolute bg-white/40 rounded-full animate-ripple"
-          style={{
-            left: r.x,
-            top: r.y,
-            transform: "translate(-50%, -50%)",
-            width: "200px",
-            height: "200px",
-          }}
-        />
-      ))}
-    </button>
-  );
-};
-
-export default function App() {
-  const [theme, setTheme] = useState("minimal");
-
-  const themes = {
-    minimal: {
-      bg: "bg-gradient-to-br from-minimal-bg to-white",
-      text: "text-minimal-primary",
-      accent: "text-minimal-accent",
-      button: "bg-minimal-accent text-white hover:opacity-90",
-      card: "bg-white shadow-xl border border-gray-200",
-      font: "font-futuristic",
-      label: "Futuristic Minimal",
-    },
-    friendly: {
-      bg: "bg-gradient-to-br from-orange-100 to-fuchsia-50",
-      text: "text-friendly-primary",
-      accent: "text-friendly-accent",
-      button: "bg-friendly-accent text-white hover:brightness-110",
-      card: "bg-orange-50 shadow-lg border border-orange-200",
-      font: "font-friendly",
-      label: "Friendly & Accessible",
-    },
-    hacker: {
-      bg: "bg-gradient-to-br from-black to-hacker-bg",
-      text: "text-hacker-primary",
-      accent: "text-hacker-accent",
-      button: "bg-hacker-accent text-black hover:scale-105",
-      card: "bg-hacker-bg shadow-lg border border-green-400/20",
-      font: "font-hacker",
-      label: "Dark Pro / Hacker",
-    },
-  };
-
-  const active = themes[theme];
+export default function LandingPage() {
+  const [dark, setDark] = useState(false);
 
   return (
     <div
-      className={`${active.bg} min-h-screen transition-all duration-700 relative overflow-hidden`}
+      className={
+        dark
+          ? "bg-gray-950 text-white transition-colors duration-500"
+          : "bg-gray-50 text-gray-900 transition-colors duration-500"
+      }
     >
-      {/* Floating orbs background */}
-      <motion.div
-        className="absolute top-20 left-10 w-40 h-40 bg-pink-400/30 rounded-full blur-3xl"
-        animate={{ y: [0, 20, 0], x: [0, 10, 0] }}
-        transition={{ repeat: Infinity, duration: 6 }}
-      />
-      <motion.div
-        className="absolute bottom-20 right-20 w-60 h-60 bg-blue-400/30 rounded-full blur-3xl"
-        animate={{ y: [0, -20, 0], x: [0, -10, 0] }}
-        transition={{ repeat: Infinity, duration: 8 }}
-      />
-
       {/* Header */}
-      <header className="flex justify-between items-center p-6 relative z-10">
-        <h1 className={`${active.font} ${active.text} text-2xl font-bold`}>
-          Project VISTA
-        </h1>
-        <div className="flex gap-2">
-          {Object.keys(themes).map((t) => (
-            <button
-              key={t}
-              onClick={() => setTheme(t)}
-              className="px-3 py-1 text-sm rounded-lg border hover:scale-105 transition bg-white/50 backdrop-blur"
+      <header className="sticky top-0 z-50 flex items-center justify-between px-6 py-4 shadow-md bg-opacity-80 backdrop-blur-md">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="flex items-center space-x-2 font-bold text-xl"
+        >
+          <Eye className="w-6 h-6 text-cyan-500" />
+          <span>Project VISTA</span>
+        </motion.div>
+        <nav className="hidden md:flex space-x-6 font-medium">
+          {["Features", "Demo", "About", "Contact"].map((item, i) => (
+            <motion.a
+              key={i}
+              href={`#${item.toLowerCase()}`}
+              whileHover={{ scale: 1.1, color: "#06b6d4" }}
+              className="cursor-pointer"
             >
-              {themes[t].label}
-            </button>
+              {item}
+            </motion.a>
           ))}
-        </div>
+        </nav>
+        <motion.button
+          whileHover={{ rotate: 15 }}
+          onClick={() => setDark(!dark)}
+        >
+          {dark ? (
+            <Sun className="w-5 h-5 text-yellow-400" />
+          ) : (
+            <Moon className="w-5 h-5 text-cyan-500" />
+          )}
+        </motion.button>
       </header>
 
       {/* Hero */}
-      <main className="flex flex-col items-center justify-center px-6 text-center relative z-10">
-        <motion.h2
-          initial={{ opacity: 0, y: -40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className={`${active.font} ${active.text} text-5xl font-extrabold mt-16`}
-        >
-          See the World Differently
-        </motion.h2>
-        <p className={`${active.text} max-w-xl mt-6`}>
-          A wearable assistive system powered by computer vision and OCR,
-          designed to empower accessibility.
-        </p>
-        <div className="mt-8 flex gap-4">
-          <RippleButton
-            className={`${active.button} px-6 py-3 rounded-xl font-semibold`}
+      <section className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/30 via-purple-500/20 to-transparent blur-3xl" />
+        <div className="relative grid md:grid-cols-2 gap-8 px-10 py-24 items-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
           >
-            Get Started
-          </RippleButton>
-          <RippleButton
-            className={`px-6 py-3 rounded-xl border ${active.accent}`}
+            <h1 className="text-4xl md:text-6xl font-extrabold mb-4 leading-tight">
+              See the world differently.
+            </h1>
+            <p className="mb-6 text-lg text-gray-600 dark:text-gray-300">
+              Project VISTA is your futuristic companion, blending vision,
+              accessibility, and AI into one seamless experience.
+            </p>
+            <div className="flex space-x-4">
+              <Button className="bg-cyan-500 hover:bg-cyan-600 text-white rounded-xl px-6 py-3 shadow-lg">
+                Get Started
+              </Button>
+              <Button
+                variant="outline"
+                className="rounded-xl border-2 border-cyan-500 text-cyan-500 hover:bg-cyan-50 dark:hover:bg-gray-800"
+              >
+                Learn More
+              </Button>
+            </div>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1 }}
+            className="flex justify-center"
           >
-            Learn More
-          </RippleButton>
+            <Card className="w-80 bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl shadow-2xl rounded-2xl">
+              <CardContent className="p-6 flex flex-col items-center space-y-4">
+                <Cpu className="w-12 h-12 text-cyan-500" />
+                <h3 className="text-xl font-semibold">AI-Powered Vision</h3>
+                <p className="text-sm text-center text-gray-600 dark:text-gray-300">
+                  Experience real-time OCR and gesture recognition with cutting-edge AI.
+                </p>
+              </CardContent>
+            </Card>
+          </motion.div>
         </div>
-
-        {/* Features */}
-        <div className="grid md:grid-cols-3 gap-6 mt-16 w-full max-w-5xl">
-          {["Vision", "OCR", "Gesture Control"].map((feat, i) => (
-            <motion.div
-              key={feat}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.2 }}
-              className={`${active.card} rounded-2xl p-6 hover:shadow-2xl hover:scale-105 transition-all duration-500 relative`}
-            >
-              <span className="absolute inset-0 rounded-2xl bg-gradient-to-br from-transparent to-white/10 opacity-0 hover:opacity-100 transition" />
-              <h3 className={`${active.accent} text-xl font-bold mb-2`}>
-                {feat}
-              </h3>
-              <p className={active.text}>
-                {feat} is seamlessly integrated into Project VISTA to ensure
-                usability, speed, and innovation.
-              </p>
-            </motion.div>
-          ))}
-        </div>
-      </main>
+      </section>
     </div>
   );
 }

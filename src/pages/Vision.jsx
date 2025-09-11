@@ -48,10 +48,10 @@ export default function Vision() {
           {sections.map((s) => (
             <li
               key={s.id}
-              className={`cursor-pointer px-2 py-1 rounded-xl ${
+              className={`cursor-pointer px-2 py-1 rounded-xl transition ${
                 activeSection === s.id
                   ? "bg-cyan-500 text-white shadow"
-                  : "hover:bg-cyan-100 dark:hover:bg-gray-700"
+                  : "text-gray-700 dark:text-gray-300 hover:bg-cyan-100 dark:hover:bg-gray-700"
               }`}
               onClick={() => setActiveSection(s.id)}
             >
@@ -59,6 +59,7 @@ export default function Vision() {
             </li>
           ))}
         </ul>
+
       </aside>
 
       {/* Main content */}

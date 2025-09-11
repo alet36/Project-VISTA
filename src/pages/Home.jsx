@@ -40,7 +40,7 @@ export default function Home() {
             <h1 className="text-4xl md:text-6xl font-extrabold mb-4 leading-tight">
               See the world differently.
             </h1>
-            <p className="mb-6 text-lg text-gray-800 dark:text-gray-200">
+            <p className="mb-6 text-lg">
               An assistive system powered by AI, gestures, and vision.
             </p>
             <div className="space-x-4">
@@ -67,7 +67,7 @@ export default function Home() {
 
       {/* Features Section */}
       <section className="px-10 py-20 bg-gray-50 dark:bg-gray-800">
-        <h2 className="text-3xl font-bold text-center mb-12 text-gray-900 dark:text-100">Core Features</h2>
+        <h2 className="text-3xl font-bold text-center mb-12">Core Features</h2>
         <div className="grid md:grid-cols-4 gap-8">
           {features.map((f, i) => (
             <motion.div
@@ -79,7 +79,7 @@ export default function Home() {
             >
               <div className="mb-4">{f.icon}</div>
               <h3 className="font-semibold text-lg">{f.title}</h3>
-              <p className="text-sm text-gray-700 dark:text-gray-300">{f.description}</p>
+              <p className="text-sm text-gray-600 dark:text-gray-300">{f.description}</p>
             </motion.div>
           ))}
         </div>

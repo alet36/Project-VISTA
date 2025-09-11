@@ -63,12 +63,16 @@ export default function CNNs() {
       </aside>
 
       {/* Main content */}
-      <section className="col-span-3 text-gray-800 dark:text-gray-200">
+      <section className="col-span-3">
         <h1 className="text-3xl font-bold mb-6">
           Convolutional Neural Networks (CNNs)
         </h1>
-        {renderSection()}
+      
+        <div className="prose prose-gray dark:prose-invert max-w-none">
+          {renderSection()}
+        </div>
       </section>
+
 
     </div>
   );

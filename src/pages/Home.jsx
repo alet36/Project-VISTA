@@ -79,7 +79,7 @@ export default function Home() {
             >
               <div className="mb-4">{f.icon}</div>
               <h3 className="font-semibold text-lg">{f.title}</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-300">{f.description}</p>
+              <p className="text-sm text-gray-0 dark:text-gray-400">{f.description}</p>
             </motion.div>
           ))}
         </div>

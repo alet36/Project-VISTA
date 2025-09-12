@@ -13,26 +13,32 @@ export default function CNNs() {
     switch (activeSection) {
       case "intro":
         return (
-          <p className="text-gray-800 dark:text-gray-200">
-            Convolutional Neural Networks (CNNs) are a class of deep learning
-            models primarily used for analyzing visual data. They use
-            convolutional layers to automatically learn spatial hierarchies of
-            features from input images.
-          </p>
+          <div className="p-6 rounded-2xl bg-white dark:bg-gray-800">
+            <p className="text-gray-900 dark:text-gray-200">
+              Convolutional Neural Networks (CNNs) are a class of deep learning
+              models primarily used for analyzing visual data. They use
+              convolutional layers to automatically learn spatial hierarchies of
+              features from input images.
+            </p>
+          </div>
         );
       case "steps":
         return (
-          <ol className="list-decimal list-inside space-y-2 text-gray-800 dark:text-gray-200">
-            <li>Understand the structure of CNNs (layers, filters, pooling).</li>
-            <li>Prepare a dataset for training.</li>
-            <li>Build and train the model.</li>
-            <li>Evaluate accuracy and optimize parameters.</li>
-          </ol>
+          <div className="p-6 rounded-2xl bg-white dark:bg-gray-800">
+            <ol className="list-decimal list-inside space-y-2 text-gray-900 dark:text-gray-200">
+              <li>Understand the structure of CNNs (layers, filters, pooling).</li>
+              <li>Prepare a dataset for training.</li>
+              <li>Build and train the model.</li>
+              <li>Evaluate accuracy and optimize parameters.</li>
+            </ol>
+          </div>
         );
       case "demo":
         return (
-          <div className="p-6 rounded-2xl bg-gray-100 text-gray-900 dark:bg-gray-700 dark:text-gray-200">
-            [CNNs demo placeholder — e.g., simple image classification]
+          <div className="p-6 rounded-2xl bg-gray-100 dark:bg-gray-700">
+            <p className="text-gray-900 dark:text-gray-200">
+              [CNNs demo placeholder — e.g., simple image classification]
+            </p>
           </div>
         );
       default:
@@ -51,7 +57,7 @@ export default function CNNs() {
               className={`cursor-pointer px-2 py-1 rounded-xl transition ${
                 activeSection === s.id
                   ? "bg-cyan-500 text-white shadow"
-                  : "text-gray-800 dark:text-gray-300 hover:bg-cyan-100 dark:hover:bg-gray-700"
+                  : "text-gray-900 dark:text-gray-300 hover:bg-cyan-100 dark:hover:bg-gray-700"
               }`}
               onClick={() => setActiveSection(s.id)}
             >

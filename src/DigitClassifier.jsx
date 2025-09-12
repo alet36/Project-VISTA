@@ -10,12 +10,17 @@ const DigitClassifier = () => {
   const [confidence, setConfidence] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Load model on mount
+  // Load model
   useEffect(() => {
     const loadModel = async () => {
-      const loadedModel = await tf.loadLayersModel(MODEL_URL);
-      setModel(loadedModel);
-      setLoading(false);
+      try {
+        const loadedModel = await tf.loadLayersModel(MODEL_URL);
+        setModel(loadedModel);
+      } catch (error) {
+        console.error("Error loading model:", error);
+      } finally {
+        setLoading(false);
+      }
     };
     loadModel();
   }, []);
@@ -105,35 +110,41 @@ const DigitClassifier = () => {
     <div style={{ textAlign: 'center' }}>
       <h4 className="text-lg font-semibold mb-2">Draw a digit below</h4>
 
-      {loading ? (
-        <div className="mt-4 text-blue-500 font-medium">Loading model...</div>
-      ) : (
-        <>
-          <canvas
-            ref={canvasRef}
-            width={280}
-            height={280}
-            style={{
-              border: '2px solid #ccc',
-              backgroundColor: 'black',
-              cursor: 'crosshair',
-              imageRendering: 'pixelated',
-            }}
-          />
-          <div style={{ marginTop: '10px' }}>
-            <button onClick={handlePredict} className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-              Predict
-            </button>
-            <button onClick={handleClear} className="ml-2 px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">
-              Clear
-            </button>
-          </div>
-        </>
-      )}
+      <canvas
+        ref={canvasRef}
+        width={280}
+        height={280}
+        style={{
+          border: '2px solid #ccc',
+          backgroundColor: 'black',
+          cursor: 'crosshair',
+          imageRendering: 'pixelated',
+        }}
+      />
+
+      <div style={{ marginTop: '10px' }}>
+        <button
+          onClick={handlePredict}
+          disabled={loading}
+          className={`px-4 py-2 rounded ${
+            loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-600'
+          } text-white`}
+        >
+          {loading ? 'Loading Model...' : 'Predict'}
+        </button>
+        <button
+          onClick={handleClear}
+          className="ml-2 px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
+        >
+          Clear
+        </button>
+      </div>
 
       {prediction !== null && (
         <div className="mt-4 p-4 bg-green-100 text-green-800 rounded shadow-md inline-block">
-          <strong>Predicted Digit:</strong> <span className="text-2xl font-bold">{prediction}</span><br />
+          <strong>Predicted Digit:</strong>{' '}
+          <span className="text-2xl font-bold">{prediction}</span>
+          <br />
           <strong>Confidence:</strong> {confidence}%
         </div>
       )}

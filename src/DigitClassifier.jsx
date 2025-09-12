@@ -16,7 +16,6 @@ const DigitClassifier = () => {
       try {
         const loadedModel = await tf.loadLayersModel(MODEL_URL);
         setModel(loadedModel);
-        console.log("Model loaded successfully");
       } catch (error) {
         console.error("Error loading model:", error);
       } finally {
@@ -91,16 +90,8 @@ const DigitClassifier = () => {
     const output = model.predict(input);
     const result = await output.data();
 
-    // Safe max index calculation
-    let maxIndex = 0;
-    for (let i = 1; i < result.length; i++) {
-      if (result[i] > result[maxIndex]) {
-        maxIndex = i;
-      }
-    }
-
-    const predictedDigit = maxIndex;
-    const confidenceScore = result[maxIndex] * 100;
+    const predictedDigit = result.indexOf(Math.max(...result));
+    const confidenceScore = Math.max(...result) * 100;
 
     setPrediction(predictedDigit);
     setConfidence(confidenceScore.toFixed(2));
@@ -119,4 +110,46 @@ const DigitClassifier = () => {
     <div style={{ textAlign: 'center' }}>
       <h4 className="text-lg font-semibold mb-2">Draw a digit below</h4>
 
-     
+      <canvas
+        ref={canvasRef}
+        width={280}
+        height={280}
+        style={{
+          border: '2px solid #ccc',
+          backgroundColor: 'black',
+          cursor: 'crosshair',
+          imageRendering: 'pixelated',
+        }}
+      />
+
+      <div style={{ marginTop: '10px' }}>
+        <button
+          onClick={handlePredict}
+          disabled={loading}
+          className={`px-4 py-2 rounded ${
+            loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-600'
+          } text-white`}
+        >
+          {loading ? 'Loading Model...' : 'Predict'}
+        </button>
+        <button
+          onClick={handleClear}
+          className="ml-2 px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
+        >
+          Clear
+        </button>
+      </div>
+
+      {prediction !== null && (
+        <div className="mt-4 p-4 bg-green-100 text-green-800 rounded shadow-md inline-block">
+          <strong>Predicted Digit:</strong>{' '}
+          <span className="text-2xl font-bold">{prediction}</span>
+          <br />
+          <strong>Confidence:</strong> {confidence}%
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default DigitClassifier;

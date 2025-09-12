@@ -1,93 +1,52 @@
-import React from "react";
-import { motion } from "framer-motion";
-import { Eye, Hand, Type, Cpu } from "lucide-react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import Home from "./pages/Home";
+import CNNs from "./pages/CNNs";
+import Vision from "./pages/Vision";
+import OCR from "./pages/OCR";
+import Demos from "./pages/Demos";
+import Journey from "./pages/Journey";
+import About from "./pages/About";
 
-export default function Home() {
-  const features = [
-    {
-      icon: <Hand className="w-8 h-8 text-cyan-500" />,
-      title: "Gesture Recognition",
-      description: "Control systems naturally with your hands."
-    },
-    {
-      icon: <Type className="w-8 h-8 text-purple-500" />,
-      title: "OCR & Text",
-      description: "Read and extract text from the world around you."
-    },
-    {
-      icon: <Cpu className="w-8 h-8 text-pink-500" />,
-      title: "AI Powered",
-      description: "Smart CNN models process vision in real time."
-    },
-    {
-      icon: <Eye className="w-8 h-8 text-green-500" />,
-      title: "Accessibility",
-      description: "Designed to empower and include everyone."
-    },
-  ];
-
+export default function App() {
   return (
-    <div>
-      {/* Hero Section */}
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 via-purple-500/20 to-transparent blur-3xl" />
-        <div className="relative grid md:grid-cols-2 gap-8 px-10 py-24 items-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <h1 className="text-4xl md:text-6xl font-extrabold mb-4 leading-tight">
-              See the world differently.
+    <Router>
+      <div className="min-h-screen flex flex-col bg-white text-black dark:bg-gray-900 dark:text-white">
+        {/* ====== Navbar ====== */}
+        <header className="bg-gray-100 dark:bg-gray-800 shadow">
+          <nav className="container mx-auto flex justify-between items-center px-6 py-4">
+            <h1 className="text-2xl font-extrabold">
+              <Link to="/">Project VISTA</Link>
             </h1>
-            <p className="mb-6 text-lg">
-              An assistive system powered by AI, gestures, and vision.
-            </p>
-            <div className="space-x-4">
-              <button className="px-6 py-3 bg-cyan-500 text-white rounded-xl shadow-md hover:bg-cyan-600">
-                Try the Demo
-              </button>
-              <button className="px-6 py-3 border border-cyan-500 text-cyan-500 rounded-xl hover:bg-cyan-50 dark:hover:bg-gray-800">
-                Learn More
-              </button>
-            </div>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1 }}
-            className="flex justify-center"
-          >
-            <div className="w-80 h-52 md:w-[400px] md:h-[250px] rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 flex items-center justify-center">
-              <span className="text-gray-500 dark:text-gray-400">[ Demo Mockup ]</span>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+            <ul className="flex space-x-6 text-lg font-medium">
+              <li><Link to="/">Home</Link></li>
+              <li><Link to="/cnns">CNNs</Link></li>
+              <li><Link to="/vision">Vision</Link></li>
+              <li><Link to="/ocr">OCR</Link></li>
+              <li><Link to="/demos">Demos</Link></li>
+              <li><Link to="/journey">The Journey</Link></li>
+              <li><Link to="/about">About</Link></li>
+            </ul>
+          </nav>
+        </header>
 
-      {/* Features Section */}
-      <section className="px-10 py-20 bg-gray-50 dark:bg-gray-800">
-        <h2 className="text-3xl font-extrabold text-center mb-12 text-gray-900 dark:text-white">
-        Core Features
-        </h2>
+        {/* ====== Page Content ====== */}
+        <main className="flex-grow container mx-auto px-6 py-10">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/cnns" element={<CNNs />} />
+            <Route path="/vision" element={<Vision />} />
+            <Route path="/ocr" element={<OCR />} />
+            <Route path="/demos" element={<Demos />} />
+            <Route path="/journey" element={<Journey />} />
+            <Route path="/about" element={<About />} />
+          </Routes>
+        </main>
 
-        <div className="grid md:grid-cols-4 gap-8">
-          {features.map((f, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.2 }}
-              className="p-6 rounded-2xl shadow-md bg-white dark:bg-gray-900 hover:shadow-lg hover:scale-105 transition"
-            >
-              <div className="mb-4">{f.icon}</div>
-              <h3 className="font-semibold text-lg text-gray-900 dark:text-white">{f.title}</h3>
-              <p className="text-sm text-gray-700 dark:text-gray-400">{f.description}</p>
-
-            </motion.div>
-          ))}
-        </div>
-      </section>
-    </div>
+        {/* ====== Footer ====== */}
+        <footer className="bg-gray-100 dark:bg-gray-800 text-center py-4 text-sm text-gray-600 dark:text-gray-400">
+          © {new Date().getFullYear()} Project VISTA — Built for the IB Personal Project
+        </footer>
+      </div>
+    </Router>
   );
 }

@@ -220,7 +220,7 @@ const ProjectVista = () => {
                   </button>
 
 
-                  {/*Space for the fast api*/ 
+                  {/*Space for the fast api*/} 
                 <div>
                   <h2 className={`text-2xl font-semibold mb-4 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
                     Making Predictions
@@ -235,9 +235,12 @@ const ProjectVista = () => {
                   </div>
                 </div>
                   
-                </div>
+              </div>
+                    
               )}
-              
+
+
+                  
               {selectedTopic === 'demo' && (
                 <div>
                   <h2 className={`text-2xl font-semibold mb-4 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>

@@ -8,6 +8,7 @@ const DigitClassifier = () => {
   const [model, setModel] = useState(null);
   const [prediction, setPrediction] = useState(null);
 
+  // Load the model once
   useEffect(() => {
     const loadModel = async () => {
       const loadedModel = await tf.loadLayersModel(MODEL_URL);
@@ -16,6 +17,7 @@ const DigitClassifier = () => {
     loadModel();
   }, []);
 
+  // Set up drawing on canvas
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
@@ -60,27 +62,31 @@ const DigitClassifier = () => {
   }, []);
 
   const handlePredict = async () => {
-    if (!model) return;
+    if (!model) {
+      alert("Model is still loading. Please wait.");
+      return;
+    }
 
     const canvas = canvasRef.current;
+
+    // Resize to 28x28 for MNIST
     const tempCanvas = document.createElement('canvas');
     tempCanvas.width = 28;
     tempCanvas.height = 28;
     const tempCtx = tempCanvas.getContext('2d');
-
-    // Resize and get image data
     tempCtx.drawImage(canvas, 0, 0, 28, 28);
-    const imageData = tempCtx.getImageData(0, 0, 28, 28);
 
+    const imageData = tempCtx.getImageData(0, 0, 28, 28);
     const input = tf.browser.fromPixels(imageData, 1)
-      .reshape([1, 28, 28, 1])
-      .div(255.0);
+      .toFloat()
+      .div(tf.scalar(255.0))
+      .reshape([1, 28, 28, 1]);
 
     const output = model.predict(input);
-    const result = output.argMax(1);
-    const digit = (await result.data())[0];
+    const result = await output.data();
+    const predictedDigit = result.indexOf(Math.max(...result));
 
-    setPrediction(digit);
+    setPrediction(predictedDigit);
   };
 
   const handleClear = () => {
@@ -115,7 +121,7 @@ const DigitClassifier = () => {
       </div>
       {prediction !== null && (
         <div className="mt-4 p-4 bg-green-100 text-green-800 rounded shadow-md inline-block">
-          <strong>Predicted Digit:</strong> {prediction}
+          <strong>Predicted Digit:</strong> <span className="text-2xl font-bold">{prediction}</span>
         </div>
       )}
     </div>

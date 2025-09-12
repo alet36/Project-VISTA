@@ -218,6 +218,9 @@ const ProjectVista = () => {
                       'Mark as Complete'
                     )}
                   </button>
+            </div>
+
+            <div>
 
 
                   {/*Space for the fast api*/} 

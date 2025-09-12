@@ -7,17 +7,20 @@ const DigitClassifier = () => {
   const canvasRef = useRef(null);
   const [model, setModel] = useState(null);
   const [prediction, setPrediction] = useState(null);
+  const [confidence, setConfidence] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  // Load the model once
+  // Load model on mount
   useEffect(() => {
     const loadModel = async () => {
       const loadedModel = await tf.loadLayersModel(MODEL_URL);
       setModel(loadedModel);
+      setLoading(false);
     };
     loadModel();
   }, []);
 
-  // Set up drawing on canvas
+  // Canvas drawing setup
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
@@ -62,14 +65,11 @@ const DigitClassifier = () => {
   }, []);
 
   const handlePredict = async () => {
-    if (!model) {
-      alert("Model is still loading. Please wait.");
-      return;
-    }
+    if (!model) return;
 
     const canvas = canvasRef.current;
 
-    // Resize to 28x28 for MNIST
+    // Resize to 28x28
     const tempCanvas = document.createElement('canvas');
     tempCanvas.width = 28;
     tempCanvas.height = 28;
@@ -84,9 +84,12 @@ const DigitClassifier = () => {
 
     const output = model.predict(input);
     const result = await output.data();
+
     const predictedDigit = result.indexOf(Math.max(...result));
+    const confidenceScore = Math.max(...result) * 100;
 
     setPrediction(predictedDigit);
+    setConfidence(confidenceScore.toFixed(2));
   };
 
   const handleClear = () => {
@@ -95,33 +98,43 @@ const DigitClassifier = () => {
     ctx.fillStyle = 'black';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     setPrediction(null);
+    setConfidence(null);
   };
 
   return (
     <div style={{ textAlign: 'center' }}>
       <h4 className="text-lg font-semibold mb-2">Draw a digit below</h4>
-      <canvas
-        ref={canvasRef}
-        width={280}
-        height={280}
-        style={{
-          border: '2px solid #ccc',
-          backgroundColor: 'black',
-          cursor: 'crosshair',
-          imageRendering: 'pixelated',
-        }}
-      />
-      <div style={{ marginTop: '10px' }}>
-        <button onClick={handlePredict} className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-          Predict
-        </button>
-        <button onClick={handleClear} className="ml-2 px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">
-          Clear
-        </button>
-      </div>
+
+      {loading ? (
+        <div className="mt-4 text-blue-500 font-medium">Loading model...</div>
+      ) : (
+        <>
+          <canvas
+            ref={canvasRef}
+            width={280}
+            height={280}
+            style={{
+              border: '2px solid #ccc',
+              backgroundColor: 'black',
+              cursor: 'crosshair',
+              imageRendering: 'pixelated',
+            }}
+          />
+          <div style={{ marginTop: '10px' }}>
+            <button onClick={handlePredict} className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+              Predict
+            </button>
+            <button onClick={handleClear} className="ml-2 px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">
+              Clear
+            </button>
+          </div>
+        </>
+      )}
+
       {prediction !== null && (
         <div className="mt-4 p-4 bg-green-100 text-green-800 rounded shadow-md inline-block">
-          <strong>Predicted Digit:</strong> <span className="text-2xl font-bold">{prediction}</span>
+          <strong>Predicted Digit:</strong> <span className="text-2xl font-bold">{prediction}</span><br />
+          <strong>Confidence:</strong> {confidence}%
         </div>
       )}
     </div>

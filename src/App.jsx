@@ -219,9 +219,21 @@ const ProjectVista = () => {
                     )}
                   </button>
 
-                  <div>
-                    <p>Super Prueba</p>
+
+                  {/*Space for the fast api*/ 
+                <div>
+                  <h2 className={`text-2xl font-semibold mb-4 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+                    Making Predictions
+                  </h2>
+                  <p className={`text-lg mb-6 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                    CNNs analyze images by breaking them down into smaller pieces, looking for patterns, and then making educated guesses about what they see.
+                  </p>
+                  <div className={`p-4 rounded ${isDarkMode ? 'bg-gray-700' : 'bg-purple-50'}`}>
+                    <p className={`${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                      📊 <strong>Process:</strong> Input → Feature Detection → Pattern Recognition → Classification
+                    </p>
                   </div>
+                </div>
                   
                 </div>
               )}

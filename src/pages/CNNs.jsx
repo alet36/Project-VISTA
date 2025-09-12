@@ -46,7 +46,7 @@ export default function CNNs() {
     <div className="grid grid-cols-4 gap-8">
       {/* Sidebar */}
       <aside className="col-span-1 bg-white dark:bg-gray-800 rounded-2xl shadow-md p-4 h-fit sticky top-24">
-        <ul className="space-y-4 text-lg font-medium">
+        <ul className="space-y-4 text-lg font-medium text-gray-900 dark:text-white">
           {sections.map((s) => (
             <li
               key={s.id}
@@ -74,4 +74,3 @@ export default function CNNs() {
     </div>
   );
 }
-

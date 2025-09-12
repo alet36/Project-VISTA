@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 
-
 export default function CNNs() {
   const [activeSection, setActiveSection] = useState("intro");
 
@@ -14,7 +13,7 @@ export default function CNNs() {
     switch (activeSection) {
       case "intro":
         return (
-          <p>
+          <p className="text-gray-900 dark:text-gray-200">
             Convolutional Neural Networks (CNNs) are a class of deep learning
             models primarily used for analyzing visual data. They use
             convolutional layers to automatically learn spatial hierarchies of
@@ -23,7 +22,7 @@ export default function CNNs() {
         );
       case "steps":
         return (
-          <ol className="list-decimal list-inside space-y-2">
+          <ol className="list-decimal list-inside space-y-2 text-gray-900 dark:text-gray-200">
             <li>Understand the structure of CNNs (layers, filters, pooling).</li>
             <li>Prepare a dataset for training.</li>
             <li>Build and train the model.</li>
@@ -32,7 +31,7 @@ export default function CNNs() {
         );
       case "demo":
         return (
-          <div className="p-6 bg-white dark:bg-gray-700 rounded-2xl">
+          <div className="p-6 rounded-2xl bg-gray-100 text-gray-900 dark:bg-gray-700 dark:text-gray-200">
             [CNNs demo placeholder — e.g., simple image classification]
           </div>
         );
@@ -49,10 +48,10 @@ export default function CNNs() {
           {sections.map((s) => (
             <li
               key={s.id}
-              className={`cursor-pointer px-2 py-1 rounded-xl transition ${
+              className={`cursor-pointer px-2 py-1 rounded-xl ${
                 activeSection === s.id
                   ? "bg-cyan-500 text-white shadow"
-                  : "text-gray-700 dark:text-gray-300 hover:bg-cyan-100 dark:hover:bg-gray-700"
+                  : "hover:bg-cyan-100 dark:hover:bg-gray-700"
               }`}
               onClick={() => setActiveSection(s.id)}
             >
@@ -64,18 +63,11 @@ export default function CNNs() {
 
       {/* Main content */}
       <section className="col-span-3">
-        <h1 className="text-3xl font-bold mb-6">
+        <h1 className="text-3xl font-bold mb-6 text-gray-900 dark:text-gray-100">
           Convolutional Neural Networks (CNNs)
         </h1>
-      
-        <div className="prose prose-gray dark:prose-invert max-w-none">
-          <div className="text-black dark:text-gray-200">
-            {renderSection(
-            )}
-          </div>
-        </div>
+        {renderSection()}
       </section>
-
     </div>
   );
 }

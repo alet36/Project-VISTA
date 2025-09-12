@@ -13,29 +13,25 @@ export default function CNNs() {
     switch (activeSection) {
       case "intro":
         return (
-          <div className="p-6 rounded-2xl bg-white dark:bg-gray-800">
-            <p className="text-gray-900 dark:text-gray-200">
-              Convolutional Neural Networks (CNNs) are a class of deep learning
-              models primarily used for analyzing visual data. They use
-              convolutional layers to automatically learn spatial hierarchies of
-              features from input images.
-            </p>
-          </div>
+          <p className="text-gray-700 dark:text-gray-200">
+            Convolutional Neural Networks (CNNs) are a class of deep learning
+            models primarily used for analyzing visual data. They use
+            convolutional layers to automatically learn spatial hierarchies of
+            features from input images.
+          </p>
         );
       case "steps":
         return (
-          <div className="p-6 rounded-2xl bg-white dark:bg-gray-800">
-            <ol className="list-decimal list-inside space-y-2 text-gray-900 dark:text-gray-200">
-              <li>Understand the structure of CNNs (layers, filters, pooling).</li>
-              <li>Prepare a dataset for training.</li>
-              <li>Build and train the model.</li>
-              <li>Evaluate accuracy and optimize parameters.</li>
-            </ol>
-          </div>
+          <ol className="list-decimal list-inside space-y-2 text-gray-700 dark:text-gray-200">
+            <li>Understand the structure of CNNs (layers, filters, pooling).</li>
+            <li>Prepare a dataset for training.</li>
+            <li>Build and train the model.</li>
+            <li>Evaluate accuracy and optimize parameters.</li>
+          </ol>
         );
       case "demo":
         return (
-          <div className="p-6 rounded-2xl bg-gray-100 dark:bg-gray-700">
+          <div className="p-6 bg-gray-100 dark:bg-gray-700 rounded-2xl">
             <p className="text-gray-900 dark:text-gray-200">
               [CNNs demo placeholder — e.g., simple image classification]
             </p>
@@ -69,7 +65,7 @@ export default function CNNs() {
 
       {/* Main content */}
       <section className="col-span-3">
-        <h1 className="text-3xl font-bold mb-6 text-gray-900 dark:text-gray-100">
+        <h1 className="text-3xl font-bold mb-6 text-gray-800 dark:text-gray-100">
           Convolutional Neural Networks (CNNs)
         </h1>
         {renderSection()}

@@ -193,13 +193,15 @@ const ProjectVista = () => {
                     Making Predictions
                   </h2>
                   <p className={`text-lg mb-6 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-                    CNNs analyze images by breaking them down into smaller pieces, looking for patterns, and then making educated guesses about what they see.
+                    CNNs analyze images by breaking them down into smaller pieces, looking for patterns, 
+                    and then making educated guesses about what they see.
                   </p>
                   <div className={`p-4 rounded ${isDarkMode ? 'bg-gray-700' : 'bg-purple-50'}`}>
                     <p className={`${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
                       📊 <strong>Process:</strong> Input → Feature Detection → Pattern Recognition → Classification
                     </p>
                   </div>
+              
                   <button 
                     onClick={() => markTopicComplete('prediction')}
                     disabled={completedTopics.includes('prediction')}
@@ -218,29 +220,20 @@ const ProjectVista = () => {
                       'Mark as Complete'
                     )}
                   </button>
-            </div>
-
-            <div>
-
-
-                  {/*Space for the fast api*/} 
-                <div>
-                  <h2 className={`text-2xl font-semibold mb-4 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
-                    Making Predictions
-                  </h2>
-                  <p className={`text-lg mb-6 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-                    CNNs analyze images by breaking them down into smaller pieces, looking for patterns, and then making educated guesses about what they see.
-                  </p>
-                  <div className={`p-4 rounded ${isDarkMode ? 'bg-gray-700' : 'bg-purple-50'}`}>
-                    <p className={`${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-                      📊 <strong>Process:</strong> Input → Feature Detection → Pattern Recognition → Classification
+              
+                  {/* Space for the FastAPI demo */}
+                  <div className="mt-8">
+                    <h3 className={`text-xl font-semibold mb-3 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+                      Try it out!
+                    </h3>
+                    <p className={`${isDarkMode ? 'text-gray-400' : 'text-gray-700'}`}>
+                      Upload an image and let the CNN model make a prediction.
                     </p>
+                    {/* Later: add file input + fetch to FastAPI */}
                   </div>
                 </div>
-                  
-              </div>
-                    
               )}
+
 
 
                   

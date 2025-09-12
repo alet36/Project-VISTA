@@ -220,10 +220,7 @@ const ProjectVista = () => {
                   </button>
 
                   <div>
-                  fetch("https://your-fastapi-app.onrender.com/predict", {
-                    method: "POST",
-                    body: formData
-                  })
+                    <p>Super Prueba</p>
                   </div>
                   
                 </div>

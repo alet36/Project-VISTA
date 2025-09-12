@@ -1,57 +1,52 @@
-import React, { useState } from "react";
-import { Routes, Route, Link } from "react-router-dom";
-import { Sun, Moon, Eye } from "lucide-react";
-
-// Pages
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Home from "./pages/Home";
 import CNNs from "./pages/CNNs";
 import Vision from "./pages/Vision";
-import Demos from "./pages/Demos";
 import OCR from "./pages/OCR";
-import Prediction from "./pages/Prediction";
-import IB from "./pages/IB";
+import Demos from "./pages/Demos";
+import Journey from "./pages/Journey";
 import About from "./pages/About";
 
 export default function App() {
-  const [dark, setDark] = useState(false);
-
   return (
-    <div className={dark ? "bg-gray-900 text-white min-h-screen" : "bg-white text-gray-900 min-h-screen"}>
-      {/* Header */}
-      <header className="sticky top-0 z-50 flex items-center justify-between px-6 py-4 shadow-md backdrop-blur-md bg-opacity-80">
-        <div className="flex items-center space-x-2 font-bold text-xl">
-          <Eye className="w-6 h-6 text-cyan-500" />
-          <span>Project VISTA</span>
-        </div>
-        <nav className="hidden md:flex space-x-6 font-medium">
-          <Link to="/">Home</Link>
-          <Link to="/cnns">CNNs</Link>
-          <Link to="/vision">Vision</Link>
-          <Link to="/ocr">OCR</Link>
-          <Link to="/prediction">Prediction</Link>
-          <Link to="/demos">Demos</Link>
-          <Link to="/ib">IB</Link>
-          <Link to="/about">About</Link>
+    <Router>
+      <div className="min-h-screen flex flex-col bg-white text-black dark:bg-gray-900 dark:text-white">
+        {/* ====== Navbar ====== */}
+        <header className="bg-gray-100 dark:bg-gray-800 shadow">
+          <nav className="container mx-auto flex justify-between items-center px-6 py-4">
+            <h1 className="text-2xl font-extrabold">
+              <Link to="/">Project VISTA</Link>
+            </h1>
+            <ul className="flex space-x-6 text-lg font-medium">
+              <li><Link to="/">Home</Link></li>
+              <li><Link to="/cnns">CNNs</Link></li>
+              <li><Link to="/vision">Vision</Link></li>
+              <li><Link to="/ocr">OCR</Link></li>
+              <li><Link to="/demos">Demos</Link></li>
+              <li><Link to="/journey">The Journey</Link></li>
+              <li><Link to="/about">About</Link></li>
+            </ul>
+          </nav>
+        </header>
 
-        </nav>
-        <button onClick={() => setDark(!dark)}>
-          {dark ? <Sun className="w-5 h-5 text-yellow-400" /> : <Moon className="w-5 h-5 text-cyan-500" />}
-        </button>
-      </header>
+        {/* ====== Page Content ====== */}
+        <main className="flex-grow container mx-auto px-6 py-10">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/cnns" element={<CNNs />} />
+            <Route path="/vision" element={<Vision />} />
+            <Route path="/ocr" element={<OCR />} />
+            <Route path="/demos" element={<Demos />} />
+            <Route path="/journey" element={<Journey />} />
+            <Route path="/about" element={<About />} />
+          </Routes>
+        </main>
 
-      {/* Routes */}
-      <main className="p-6">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/cnns" element={<CNNs />} />
-          <Route path="/vision" element={<Vision />} />
-          <Route path="/ocr" element={<OCR />} />
-          <Route path="/prediction" element={<Prediction />} />
-          <Route path="/demos" element={<Demos />} />
-          <Route path="/ib" element={<IB />} />
-          <Route path="/about" element={<About />} />
-        </Routes>
-      </main>
-    </div>
+        {/* ====== Footer ====== */}
+        <footer className="bg-gray-100 dark:bg-gray-800 text-center py-4 text-sm text-gray-600 dark:text-gray-400">
+          © {new Date().getFullYear()} Project VISTA — Built for the IB Personal Project
+        </footer>
+      </div>
+    </Router>
   );
 }

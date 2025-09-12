@@ -1,52 +1,37 @@
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import Home from "./pages/Home";
-import CNNs from "./pages/CNNs";
-import Vision from "./pages/Vision";
-import OCR from "./pages/OCR";
-import Demos from "./pages/Demos";
-import Journey from "./pages/Journey";
-import About from "./pages/About";
+// src/pages/Home.jsx
+import { Link } from "react-router-dom";
 
-export default function App() {
+export default function Home() {
   return (
-    <Router>
-      <div className="min-h-screen flex flex-col bg-white text-black dark:bg-gray-900 dark:text-white">
-        {/* ====== Navbar ====== */}
-        <header className="bg-gray-100 dark:bg-gray-800 shadow">
-          <nav className="container mx-auto flex justify-between items-center px-6 py-4">
-            <h1 className="text-2xl font-extrabold">
-              <Link to="/">Project VISTA</Link>
-            </h1>
-            <ul className="flex space-x-6 text-lg font-medium">
-              <li><Link to="/">Home</Link></li>
-              <li><Link to="/cnns">CNNs</Link></li>
-              <li><Link to="/vision">Vision</Link></li>
-              <li><Link to="/ocr">OCR</Link></li>
-              <li><Link to="/demos">Demos</Link></li>
-              <li><Link to="/journey">The Journey</Link></li>
-              <li><Link to="/about">About</Link></li>
-            </ul>
-          </nav>
-        </header>
+    <div className="min-h-screen flex flex-col items-center justify-center text-center p-6">
+      <h1 className="text-5xl font-extrabold mb-6">
+        Welcome to <span className="text-blue-500">Project VISTA</span>
+      </h1>
+      <p className="text-lg text-gray-600 max-w-2xl mb-8">
+        An assistive vision system powered by Computer Vision, OCR, and AI.  
+        Explore demos, learn about CNNs, or dive into the tech stack.
+      </p>
 
-        {/* ====== Page Content ====== */}
-        <main className="flex-grow container mx-auto px-6 py-10">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/cnns" element={<CNNs />} />
-            <Route path="/vision" element={<Vision />} />
-            <Route path="/ocr" element={<OCR />} />
-            <Route path="/demos" element={<Demos />} />
-            <Route path="/journey" element={<Journey />} />
-            <Route path="/about" element={<About />} />
-          </Routes>
-        </main>
-
-        {/* ====== Footer ====== */}
-        <footer className="bg-gray-100 dark:bg-gray-800 text-center py-4 text-sm text-gray-600 dark:text-gray-400">
-          © {new Date().getFullYear()} Project VISTA — Built for the IB Personal Project
-        </footer>
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        <Link
+          to="/demos"
+          className="p-6 rounded-2xl shadow-md bg-blue-500 text-white hover:bg-blue-600 transition"
+        >
+          Try Demos
+        </Link>
+        <Link
+          to="/cnns"
+          className="p-6 rounded-2xl shadow-md bg-purple-500 text-white hover:bg-purple-600 transition"
+        >
+          Learn CNNs
+        </Link>
+        <Link
+          to="/about"
+          className="p-6 rounded-2xl shadow-md bg-gray-800 text-white hover:bg-gray-900 transition"
+        >
+          About Project
+        </Link>
       </div>
-    </Router>
+    </div>
   );
 }

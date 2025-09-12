@@ -200,51 +200,6 @@ const ProjectVista = () => {
                       📊 <strong>Process:</strong> Input → Feature Detection → Pattern Recognition → Classification
                     </p>
                   </div>
-
-                <div>
-                  <p className={`text-lg mb-6 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-                    Let's see this in action with a number guesser program!
-                  </p>
-                  export default function Demos() {
-                    const [file, setFile] = useState(null);
-                    const [prediction, setPrediction] = useState(null);
-                  
-                    const handleUpload = async () => {
-                      const formData = new FormData();
-                      formData.append("file", file);
-                  
-                      const res = await fetch("http://127.0.0.1:8000/predict", {
-                        method: "POST",
-                        body: formData,
-                      });
-                  
-                      const data = await res.json();
-                      setPrediction(data.prediction);
-                    };
-                  
-                    return (
-                      <div className="space-y-6">
-                        <h1 className="text-3xl font-bold">🧮 MNIST Digit Classifier</h1>
-                        <input type="file" onChange={(e) => setFile(e.target.files[0])} />
-                        <button
-                          onClick={handleUpload}
-                          className="px-4 py-2 bg-cyan-500 text-white rounded-xl hover:bg-cyan-600"
-                        >
-                          Predict
-                        </button>
-                        {prediction !== null && (
-                          <div className="p-4 bg-gray-100 rounded-xl shadow-md">
-                            <p className="text-xl font-bold">Prediction: {prediction}</p>
-                          </div>
-                        )}
-                      </div>
-                    );
-                  }
-                  </div>
-
-
-
-                  
                   <button 
                     onClick={() => markTopicComplete('prediction')}
                     disabled={completedTopics.includes('prediction')}

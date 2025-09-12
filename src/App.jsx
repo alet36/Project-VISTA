@@ -264,6 +264,13 @@ const ProjectVista = () => {
                     </p>
               
                     {/* Digit Classifier Component */}
+
+                    
+                      <div className="mt-4 p-4 bg-green-100 text-green-800 rounded shadow-md inline-block">
+                        <strong>Predicted Digit:</strong> <span className="text-2xl font-bold">{prediction}</span>
+                        <DigitClassifier />
+                      </div>
+
                     <DigitClassifier />
                   </div>
                 </div>

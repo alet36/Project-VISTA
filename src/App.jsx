@@ -218,6 +218,14 @@ const ProjectVista = () => {
                       'Mark as Complete'
                     )}
                   </button>
+
+                  <div>
+                  fetch("https://your-fastapi-app.onrender.com/predict", {
+                    method: "POST",
+                    body: formData
+                  })
+                  </div>
+                  
                 </div>
               )}
               

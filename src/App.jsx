@@ -264,7 +264,9 @@ const ProjectVista = () => {
                     </p>
               
                     {/* Digit Classifier Component */}
-                    <DigitClassifier />
+                    <div className={`mt-6 ${isDarkMode ? 'bg-gray-800' : 'bg-white'} p-6 rounded shadow-md`}>
+                      <DigitClassifier />
+                    </div>
                   </div>
                 </div>
               )}

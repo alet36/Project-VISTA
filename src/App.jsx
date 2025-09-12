@@ -44,6 +44,38 @@ const ProjectVista = () => {
     { id: 'website', label: 'Website', icon: Globe }
   ];
 
+  const handlePredict = async () => {
+  if (!model) {
+    alert("Model is still loading. Please wait a moment.");
+    return;
+  }
+
+  const canvas = canvasRef.current;
+
+  // Create a temporary canvas to resize the image to 28x28
+  const tempCanvas = document.createElement('canvas');
+  tempCanvas.width = 28;
+  tempCanvas.height = 28;
+  const tempCtx = tempCanvas.getContext('2d');
+
+  // Draw the large canvas onto the small one
+  tempCtx.drawImage(canvas, 0, 0, 28, 28);
+
+  // Get image data and convert to tensor
+  const imageData = tempCtx.getImageData(0, 0, 28, 28);
+  const input = tf.browser.fromPixels(imageData, 1)
+    .toFloat()
+    .div(tf.scalar(255.0))
+    .reshape([1, 28, 28, 1]);
+
+  const output = model.predict(input);
+  const result = await output.data();
+  const predictedDigit = result.indexOf(Math.max(...result));
+
+  setPrediction(predictedDigit);
+};
+
+  
   const HomePage = () => (
     <div className="flex-1 flex flex-col items-center justify-center p-8">
       <div className="max-w-2xl text-center space-y-8">
@@ -228,7 +260,7 @@ const ProjectVista = () => {
                       Try it out!
                     </h3>
                     <p className={`${isDarkMode ? 'text-gray-400' : 'text-gray-700'}`}>
-                      Upload an image and let the CNN model make a prediction.
+                      Draw a number and let the CNN model make a prediction.
                     </p>
               
                     {/* Digit Classifier Component */}

@@ -233,7 +233,7 @@ const ProjectVista = () => {
                       📊 <strong>Process:</strong> Input → Feature Detection → Pattern Recognition → Classification
                     </p>
                   </div>
-                </div>
+                
                   
                 </div>
               )}

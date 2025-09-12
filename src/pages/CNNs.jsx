@@ -69,7 +69,7 @@ export default function CNNs() {
         </h1>
       
         <div className="prose prose-gray dark:prose-invert max-w-none">
-          <div className="text-gray-800 dark:text-gray-200">
+          <div className="text-black dark:text-gray-200">
             {renderSection(
             )}
           </div>

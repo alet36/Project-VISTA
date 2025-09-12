@@ -13,7 +13,7 @@ export default function CNNs() {
     switch (activeSection) {
       case "intro":
         return (
-          <p className="text-gray-700 dark:text-gray-200">
+          <p>
             Convolutional Neural Networks (CNNs) are a class of deep learning
             models primarily used for analyzing visual data. They use
             convolutional layers to automatically learn spatial hierarchies of
@@ -22,7 +22,7 @@ export default function CNNs() {
         );
       case "steps":
         return (
-          <ol className="list-decimal list-inside space-y-2 text-gray-700 dark:text-gray-200">
+          <ol className="list-decimal list-inside space-y-2">
             <li>Understand the structure of CNNs (layers, filters, pooling).</li>
             <li>Prepare a dataset for training.</li>
             <li>Build and train the model.</li>
@@ -53,7 +53,7 @@ export default function CNNs() {
               className={`cursor-pointer px-2 py-1 rounded-xl transition ${
                 activeSection === s.id
                   ? "bg-cyan-500 text-white shadow"
-                  : "text-gray-900 dark:text-gray-300 hover:bg-cyan-100 dark:hover:bg-gray-700"
+                  : "hover:bg-cyan-100 dark:hover:bg-gray-700"
               }`}
               onClick={() => setActiveSection(s.id)}
             >
@@ -65,7 +65,7 @@ export default function CNNs() {
 
       {/* Main content */}
       <section className="col-span-3">
-        <h1 className="text-3xl font-bold mb-6 text-gray-800 dark:text-gray-100">
+        <h1 className="text-3xl font-bold mb-6">
           Convolutional Neural Networks (CNNs)
         </h1>
         {renderSection()}

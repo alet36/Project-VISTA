@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Home, Brain, BookOpen, Info, Play, Lightbulb, Code, Globe, ChevronRight, Moon, Sun, ArrowLeft, CheckCircle } from 'lucide-react';
+import DigitClassifier from './DigitClassifier';
 
 const ProjectVista = () => {
   const [currentPage, setCurrentPage] = useState('home');
@@ -229,10 +230,13 @@ const ProjectVista = () => {
                     <p className={`${isDarkMode ? 'text-gray-400' : 'text-gray-700'}`}>
                       Upload an image and let the CNN model make a prediction.
                     </p>
-                    {/* Later: add file input + fetch to FastAPI */}
+              
+                    {/* Digit Classifier Component */}
+                    <DigitClassifier />
                   </div>
                 </div>
               )}
+
 
 
 

@@ -8,7 +8,6 @@ const DigitClassifier = () => {
   const [model, setModel] = useState(null);
   const [prediction, setPrediction] = useState(null);
 
-  // Load model on mount
   useEffect(() => {
     const loadModel = async () => {
       const loadedModel = await tf.loadLayersModel(MODEL_URL);
@@ -17,7 +16,6 @@ const DigitClassifier = () => {
     loadModel();
   }, []);
 
-  // Draw on canvas
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
@@ -41,7 +39,7 @@ const DigitClassifier = () => {
       const rect = canvas.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
-      ctx.lineWidth = 10;
+      ctx.lineWidth = 20;
       ctx.lineCap = 'round';
       ctx.strokeStyle = 'white';
       ctx.lineTo(x, y);
@@ -65,8 +63,14 @@ const DigitClassifier = () => {
     if (!model) return;
 
     const canvas = canvasRef.current;
-    const ctx = canvas.getContext('2d');
-    const imageData = ctx.getImageData(0, 0, 28, 28);
+    const tempCanvas = document.createElement('canvas');
+    tempCanvas.width = 28;
+    tempCanvas.height = 28;
+    const tempCtx = tempCanvas.getContext('2d');
+
+    // Resize and get image data
+    tempCtx.drawImage(canvas, 0, 0, 28, 28);
+    const imageData = tempCtx.getImageData(0, 0, 28, 28);
 
     const input = tf.browser.fromPixels(imageData, 1)
       .reshape([1, 28, 28, 1])
@@ -89,19 +93,30 @@ const DigitClassifier = () => {
 
   return (
     <div style={{ textAlign: 'center' }}>
-      <h2>MNIST Digit Classifier</h2>
+      <h4 className="text-lg font-semibold mb-2">Draw a digit below</h4>
       <canvas
         ref={canvasRef}
-        width={28}
-        height={28}
-        style={{ border: '1px solid #ccc', imageRendering: 'pixelated', cursor: 'crosshair' }}
+        width={280}
+        height={280}
+        style={{
+          border: '2px solid #ccc',
+          backgroundColor: 'black',
+          cursor: 'crosshair',
+          imageRendering: 'pixelated',
+        }}
       />
       <div style={{ marginTop: '10px' }}>
-        <button onClick={handlePredict}>Predict</button>
-        <button onClick={handleClear} style={{ marginLeft: '10px' }}>Clear</button>
+        <button onClick={handlePredict} className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+          Predict
+        </button>
+        <button onClick={handleClear} className="ml-2 px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">
+          Clear
+        </button>
       </div>
       {prediction !== null && (
-        <h3>Predicted Digit: {prediction}</h3>
+        <div className="mt-4 p-4 bg-green-100 text-green-800 rounded shadow-md inline-block">
+          <strong>Predicted Digit:</strong> {prediction}
+        </div>
       )}
     </div>
   );

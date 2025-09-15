@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { Home, Brain, BookOpen, Info, Play, Lightbulb, Code, Globe, ChevronRight, Moon, Sun, ArrowLeft, CheckCircle } from 'lucide-react';
 import DigitClassifier from './DigitClassifier';
+import CanvasDigitGuesser from "../components/CanvasDigitGuesser";
+import ImageClassifier from "../components/ImageClassifier";
+
 
 const ProjectVista = () => {
   const [currentPage, setCurrentPage] = useState('home');

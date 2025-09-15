@@ -10,10 +10,15 @@ export default function CanvasDigitGuesser({ isDarkMode }) {
   // Load MNIST model once
   useEffect(() => {
     const loadModel = async () => {
-      const loadedModel = await tf.loadLayersModel(
-        "https://storage.googleapis.com/tfjs-models/tfjs/mnist/model.json"
-      );
-      setModel(loadedModel);
+      try {
+        const loadedModel = await tf.loadLayersModel(
+          "https://storage.googleapis.com/tfjs-models/tfjs/mnist_v1/model.json"
+        );
+        setModel(loadedModel);
+        console.log("✅ MNIST model loaded");
+      } catch (err) {
+        console.error("❌ Failed to load MNIST model", err);
+      }
     };
     loadModel();
   }, []);

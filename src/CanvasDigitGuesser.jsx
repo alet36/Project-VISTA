@@ -12,7 +12,7 @@ export default function CanvasDigitGuesser({ isDarkMode }) {
     const loadModel = async () => {
       try {
         const loadedModel = await tf.loadLayersModel(
-          "https://storage.googleapis.com/tfjs-models/tfjs/mnist_v1/model.json"
+          "https://raw.githubusercontent.com/cazala/mnist/master/data/model.json"
         );
         setModel(loadedModel);
         console.log("✅ MNIST model loaded");
@@ -22,6 +22,7 @@ export default function CanvasDigitGuesser({ isDarkMode }) {
     };
     loadModel();
   }, []);
+
 
   const startDrawing = (e) => {
     const ctx = canvasRef.current.getContext("2d");

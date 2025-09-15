@@ -199,10 +199,16 @@ const ProjectVista = () => {
                       🤖 <strong>Applications:</strong> Self-driving cars, medical imaging, facial recognition, and more!
                     </p>
                   </div>
+              
+                  {/* Demo: Image Classifier */}
+                  <div className="mt-6">
+                    <ImageClassifier isDarkMode={isDarkMode} />
+                  </div>
+              
                   <button 
                     onClick={() => markTopicComplete('machine-vision')}
                     disabled={completedTopics.includes('machine-vision')}
-                    className={`mt-4 px-4 py-2 rounded transition-all ${
+                    className={`mt-6 px-4 py-2 rounded transition-all ${
                       completedTopics.includes('machine-vision')
                         ? isDarkMode ? 'bg-green-600 text-white' : 'bg-green-500 text-white'
                         : isDarkMode ? 'bg-blue-600 hover:bg-blue-700 text-white' : 'bg-blue-500 hover:bg-blue-600 text-white'
@@ -219,46 +225,47 @@ const ProjectVista = () => {
                   </button>
                 </div>
               )}
+
               
               {selectedTopic === 'prediction' && (
-  <div>
-    <h2 className={`text-2xl font-semibold mb-4 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
-      Making Predictions
-    </h2>
-    <p className={`text-lg mb-6 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-      CNNs analyze images by breaking them down into smaller pieces, looking for patterns, and then making educated guesses about what they see.
-    </p>
-    <div className={`p-4 rounded ${isDarkMode ? 'bg-gray-700' : 'bg-purple-50'}`}>
-      <p className={`${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-        📊 <strong>Process:</strong> Input → Feature Detection → Pattern Recognition → Classification
-      </p>
-    </div>
-
-    {/* Demo: Handwritten Digit Guesser */}
-    <div className="mt-6">
-      <CanvasDigitGuesser isDarkMode={isDarkMode} />
-    </div>
-
-    <button 
-      onClick={() => markTopicComplete('prediction')}
-      disabled={completedTopics.includes('prediction')}
-      className={`mt-6 px-4 py-2 rounded transition-all ${
-        completedTopics.includes('prediction')
-          ? isDarkMode ? 'bg-green-600 text-white' : 'bg-green-500 text-white'
-          : isDarkMode ? 'bg-blue-600 hover:bg-blue-700 text-white' : 'bg-blue-500 hover:bg-blue-600 text-white'
-      }`}
-    >
-      {completedTopics.includes('prediction') ? (
-        <div className="flex items-center space-x-2">
-          <CheckCircle className="w-4 h-4" />
-          <span>Completed!</span>
-        </div>
-      ) : (
-        'Mark as Complete'
-      )}
-    </button>
-  </div>
-)}
+                <div>
+                  <h2 className={`text-2xl font-semibold mb-4 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+                    Making Predictions
+                  </h2>
+                  <p className={`text-lg mb-6 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                    CNNs analyze images by breaking them down into smaller pieces, looking for patterns, and then making educated guesses about what they see.
+                  </p>
+                  <div className={`p-4 rounded ${isDarkMode ? 'bg-gray-700' : 'bg-purple-50'}`}>
+                    <p className={`${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                      📊 <strong>Process:</strong> Input → Feature Detection → Pattern Recognition → Classification
+                    </p>
+                  </div>
+              
+                  {/* Demo: Handwritten Digit Guesser */}
+                  <div className="mt-6">
+                    <CanvasDigitGuesser isDarkMode={isDarkMode} />
+                  </div>
+              
+                  <button 
+                    onClick={() => markTopicComplete('prediction')}
+                    disabled={completedTopics.includes('prediction')}
+                    className={`mt-6 px-4 py-2 rounded transition-all ${
+                      completedTopics.includes('prediction')
+                        ? isDarkMode ? 'bg-green-600 text-white' : 'bg-green-500 text-white'
+                        : isDarkMode ? 'bg-blue-600 hover:bg-blue-700 text-white' : 'bg-blue-500 hover:bg-blue-600 text-white'
+                    }`}
+                  >
+                    {completedTopics.includes('prediction') ? (
+                      <div className="flex items-center space-x-2">
+                        <CheckCircle className="w-4 h-4" />
+                        <span>Completed!</span>
+                      </div>
+                    ) : (
+                      'Mark as Complete'
+                    )}
+                  </button>
+                </div>
+              )}
 
                   
               {selectedTopic === 'demo' && (

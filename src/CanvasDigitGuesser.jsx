@@ -49,20 +49,35 @@ export default function CanvasDigitGuesser({ isDarkMode }) {
   };
 
   const predictDigit = async () => {
-    if (!model) return;
+    if (!model) {
+      alert("Model is still loading... try again in a second!");
+      return;
+    }
+  
     const ctx = canvasRef.current.getContext("2d");
     let imageData = ctx.getImageData(0, 0, 280, 280);
-
+  
+    // Convert to grayscale tensor (shape [28, 28, 1])
     let img = tf.browser.fromPixels(imageData, 1)
-      .resizeNearestNeighbor([28, 28])
+      .resizeNearestNeighbor([28, 28]) // resize canvas to 28x28
       .toFloat()
       .div(255.0)
-      .expandDims(0);
-
-    const predictions = model.predict(img);
-    const predictedValue = predictions.argMax(1).dataSync()[0];
-    setPrediction(predictedValue);
+      .expandDims(0); // add batch dimension
+  
+    console.log("Input tensor shape:", img.shape); // should be [1, 28, 28, 1]
+  
+    try {
+      const predictions = model.predict(img);
+      const probs = predictions.dataSync();
+      const predictedValue = predictions.argMax(1).dataSync()[0];
+      console.log("Probabilities:", probs);
+      setPrediction(predictedValue);
+    } catch (err) {
+      console.error("Prediction error:", err);
+      setPrediction("Error");
+    }
   };
+
 
   return (
     <div className="p-6">

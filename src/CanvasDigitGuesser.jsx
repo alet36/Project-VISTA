@@ -1,9 +1,45 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import * as tf from "@tensorflow/tfjs";
 
 export default function CanvasDigitGuesser({ isDarkMode }) {
   const canvasRef = useRef(null);
   const [prediction, setPrediction] = useState(null);
+  const [drawing, setDrawing] = useState(false);
+  const [model, setModel] = useState(null);
+
+  // Load MNIST model once
+  useEffect(() => {
+    const loadModel = async () => {
+      const loadedModel = await tf.loadLayersModel(
+        "https://storage.googleapis.com/tfjs-models/tfjs/mnist/model.json"
+      );
+      setModel(loadedModel);
+    };
+    loadModel();
+  }, []);
+
+  const startDrawing = (e) => {
+    const ctx = canvasRef.current.getContext("2d");
+    ctx.lineWidth = 20;
+    ctx.lineCap = "round";
+    ctx.strokeStyle = "white";
+    ctx.beginPath();
+    ctx.moveTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
+    setDrawing(true);
+  };
+
+  const draw = (e) => {
+    if (!drawing) return;
+    const ctx = canvasRef.current.getContext("2d");
+    ctx.lineTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
+  };
+
+  const stopDrawing = () => {
+    setDrawing(false);
+  };
 
   const clearCanvas = () => {
     const ctx = canvasRef.current.getContext("2d");
@@ -13,55 +49,19 @@ export default function CanvasDigitGuesser({ isDarkMode }) {
   };
 
   const predictDigit = async () => {
+    if (!model) return;
     const ctx = canvasRef.current.getContext("2d");
     let imageData = ctx.getImageData(0, 0, 280, 280);
 
-    // Convert image to tensor
     let img = tf.browser.fromPixels(imageData, 1)
       .resizeNearestNeighbor([28, 28])
       .toFloat()
       .div(255.0)
       .expandDims(0);
 
-    // Load pretrained MNIST model from Google hosting
-    const model = await tf.loadLayersModel(
-      "https://storage.googleapis.com/tfjs-models/tfjs/mnist/model.json"
-    );
-
     const predictions = model.predict(img);
     const predictedValue = predictions.argMax(1).dataSync()[0];
     setPrediction(predictedValue);
-  };
-
-  const startDrawing = (e) => {
-    const ctx = canvasRef.current.getContext("2d");
-    ctx.lineWidth = 20;
-    ctx.lineCap = "round";
-    ctx.strokeStyle = "white";
-
-    let drawing = true;
-
-    const draw = (event) => {
-      if (!drawing) return;
-      ctx.lineTo(
-        event.nativeEvent.offsetX,
-        event.nativeEvent.offsetY
-      );
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.moveTo(
-        event.nativeEvent.offsetX,
-        event.nativeEvent.offsetY
-      );
-    };
-
-    const stopDrawing = () => {
-      drawing = false;
-      ctx.beginPath();
-    };
-
-    canvasRef.current.addEventListener("mousemove", draw);
-    canvasRef.current.addEventListener("mouseup", stopDrawing);
   };
 
   return (
@@ -74,6 +74,9 @@ export default function CanvasDigitGuesser({ isDarkMode }) {
         width={280}
         height={280}
         onMouseDown={startDrawing}
+        onMouseMove={draw}
+        onMouseUp={stopDrawing}
+        onMouseLeave={stopDrawing}
         className={`border ${isDarkMode ? "border-gray-600 bg-black" : "border-gray-300 bg-black"}`}
       />
       <div className="mt-4 flex gap-2">
